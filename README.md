@@ -119,6 +119,18 @@ sudo -sE
 cat > /proc/$(pgrep bluetoothctl)/fd/8
 ```
 
-Now it's time to send command.
+Now it's time to send command. Use the ELA Tags documentation to send the appropriate commands to the tag and tests the connection, and the function release by your tag.
+
+Once, you can diconnect from the tag and aexit.
+```bash
+[P T EN 800633:/service000b/char000c]# back
+[P T EN 800633:/service000b/char000c]# disconnect D6:18:5A:07:A0:81
+Notify closed
+Write closed
+[CHG] Device D6:18:5A:07:A0:81 ServicesResolved: no
+Successful disconnected
+[CHG] Device D6:18:5A:07:A0:81 Connected: no
+[bluetooth]# exit
+```
 
 [here_bluetooth_gatt]: https://www.bluetooth.com/specifications/gatt/
