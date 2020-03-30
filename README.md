@@ -109,4 +109,16 @@ Do the same operation to acquire writing on the **Nordic TX** by executing the f
 AcquireWrite success: fd 8 MTU 63
 ```
 
+Now it's time to write. You can do it by using direcctly the write function, but for this step we will describe how to do the work with to additionnal terminal and the file descriptor. Open two additionnal terminal and in he forst one, you can plug directly on the notificaiton signal (use the FD handle given before).
+```bash
+sudo cat /proc/$(pgrep bluetoothctl)/fd/7
+```
+In the second on, use the followind commands:
+```bash
+sudo -sE
+cat > /proc/$(pgrep bluetoothctl)/fd/8
+```
+
+Now it's time to send command.
+
 [here_bluetooth_gatt]: https://www.bluetooth.com/specifications/gatt/
