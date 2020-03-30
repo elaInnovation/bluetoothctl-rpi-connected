@@ -61,3 +61,52 @@ Connection successful
 [CHG] Device D6:18:5A:07:A0:81 UUIDs: 6e400001-b5a3-f393-e0a9-e50e24dcca9e
 [CHG] Device D6:18:5A:07:A0:81 ServicesResolved: yes
 ```
+
+For more information about service and characteristics, and for the rest of the descipton with GATT please report the [Bluetooth documentation][here_bluetooth_gatt]. Now you can enter in the gatt menu by using the associated command. Note that once you are connected, the target into bracet is not **bluetooth** anymore but your target **localname** tag.
+```bash
+[P T EN 800633]# menu gatt
+```
+
+If you need to see the different services and characteristics, you can use the command **list-attributes** with your target mac address. The attribute (address) will be useful to do the right operation of connections with your device.
+```bash
+[P T EN 800633]# list-attributes D6:18:5A:07:A0:81
+Primary Service
+        /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000a
+        00001801-0000-1000-8000-00805f9b34fb
+        Generic Attribute Profile
+Primary Service
+        /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b
+        6e400001-b5a3-f393-e0a9-e50e24dcca9e
+        Nordic UART Service
+Characteristic
+        /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char000c
+        6e400002-b5a3-f393-e0a9-e50e24dcca9e
+        Nordic UART TX
+Characteristic
+        /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char000e
+        6e400003-b5a3-f393-e0a9-e50e24dcca9e
+        Nordic UART RX
+Descriptor
+        /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char000e/desc0010
+        00002902-0000-1000-8000-00805f9b34fb
+        Client Characteristic Configuration
+```
+
+Now it's time to enable the right properties ofor the connection and use the appropriate commands to acquire notification and writing around your **Nordic UART characteristcs**. First of all, you need to acquire the notification on the **Nordic UART RX**. So find the **attribute** of **RX** and select it. And then acquire the notification signal.
+```bash
+[P T EN 800633]# select-attribute /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char0000e
+[P T EN 800633:/service000b/char000e]# acquire-notify
+[CHG] Attribute /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char000e NotifyAcquired: yes
+AcquireNotify success: fd 7 MTU 63
+```
+Note that if the operation is successfull, the return value show you the MTU value with an FD handle. You can reuse it for writing and notification operation. 
+
+Do the same operation to acquire writing on the **Nordic TX** by executing the following commands line.
+```bash
+[P T EN 800633]# select-attribute /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char0000c
+[P T EN 800633:/service000b/char000c]# acquire-write
+[CHG] Attribute /org/bluez/hci0/dev_D6_18_5A_07_A0_81/service000b/char000c WriteAcquired: yes
+AcquireWrite success: fd 8 MTU 63
+```
+
+[here_bluetooth_gatt]: https://www.bluetooth.com/specifications/gatt/
