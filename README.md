@@ -2,6 +2,7 @@
 This repository can be use as a sample to use a raspbery Pi and bluetoothctl to manage ELA Innovation BLE connected mode. Through this example, you will find a series of command to use our tag, the Nordic UARD and send command to our tags. All you need is a Raspbery Pi (use for this sample a Raspbery Pi 3B+) connected to internet and a Tag from ELA Innovation to test connection and send commands.
 
 ## Install bluez
+Bedore starting, you can find more information about Bluez (version 5) [here][here_bluez_5_documentation], and if you want to have a view on the different API, you can follow this [link][here_bluez_api].
 
 ## Use bluetoothctl for connection
 First of all, you need to launch bluetoothctl in a terminal. Open a terminal and then start bluetoothctl.
@@ -132,5 +133,8 @@ Successful disconnected
 [CHG] Device D6:18:5A:07:A0:81 Connected: no
 [bluetooth]# exit
 ```
+[here_bluez_5_documentation]: http://www.bluez.org/bluez-5-api-introduction-and-porting-guide/
+
+[here_bluez_api]: https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc
 
 [here_bluetooth_gatt]: https://www.bluetooth.com/specifications/gatt/
